@@ -139,7 +139,6 @@ class GoogleMapsPlaces extends GoogleWebService {
     String input, {
     String sessionToken,
     num offset,
-    Location origin,
     Location location,
     num radius,
     String language,
@@ -151,7 +150,6 @@ class GoogleMapsPlaces extends GoogleWebService {
     final url = buildAutocompleteUrl(
       sessionToken: sessionToken,
       input: input,
-      origin: origin,
       location: location,
       offset: offset,
       radius: radius,
@@ -164,13 +162,8 @@ class GoogleMapsPlaces extends GoogleWebService {
     return _decodeAutocompleteResponse(await doGet(url));
   }
 
-  Future<PlacesAutocompleteResponse> queryAutocomplete(
-    String input, {
-    num offset,
-    Location location,
-    num radius,
-    String language,
-  }) async {
+  Future<PlacesAutocompleteResponse> queryAutocomplete(String input,
+      {num offset, Location location, num radius, String language}) async {
     final url = buildQueryAutocompleteUrl(
       input: input,
       location: location,
@@ -294,7 +287,6 @@ class GoogleMapsPlaces extends GoogleWebService {
     String input,
     String sessionToken,
     num offset,
-    Location origin,
     Location location,
     num radius,
     String language,
@@ -306,7 +298,6 @@ class GoogleMapsPlaces extends GoogleWebService {
     final params = {
       'input': input != null ? Uri.encodeComponent(input) : null,
       'language': language,
-      'origin': origin,
       'location': location,
       'radius': radius,
       'types': types,
@@ -825,7 +816,6 @@ class Prediction {
   final String description;
   final String id;
   final List<Term> terms;
-  final int distanceMeters;
 
   /// JSON place_id
   final String placeId;
@@ -841,7 +831,6 @@ class Prediction {
       this.description,
       this.id,
       this.terms,
-      this.distanceMeters,
       this.placeId,
       this.reference,
       this.types,
@@ -853,7 +842,6 @@ class Prediction {
           json['description'],
           json['id'],
           json['terms']?.map((t) => Term.fromJson(t))?.toList()?.cast<Term>(),
-          json['distance_meters'],
           json['place_id'],
           json['reference'],
           json['types'] != null ? (json['types'] as List)?.cast<String>() : [],
@@ -876,22 +864,6 @@ class Term {
 
   factory Term.fromJson(Map json) =>
       json != null ? Term(json['offset'], json['value']) : null;
-
-  @override
-  String toString() {
-    return 'Term{offset: $offset, value: $value}';
-  }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Term &&
-          runtimeType == other.runtimeType &&
-          offset == other.offset &&
-          value == other.value;
-
-  @override
-  int get hashCode => offset.hashCode ^ value.hashCode;
 }
 
 class MatchedSubstring {
@@ -902,22 +874,6 @@ class MatchedSubstring {
 
   factory MatchedSubstring.fromJson(Map json) =>
       json != null ? MatchedSubstring(json['offset'], json['length']) : null;
-
-  @override
-  String toString() {
-    return 'MatchedSubstring{offset: $offset, length: $length}';
-  }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is MatchedSubstring &&
-          runtimeType == other.runtimeType &&
-          offset == other.offset &&
-          length == other.length;
-
-  @override
-  int get hashCode => offset.hashCode ^ length.hashCode;
 }
 
 class StructuredFormatting {
