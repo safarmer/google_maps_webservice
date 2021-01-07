@@ -168,7 +168,7 @@ Future<void> main() async {
             places.buildTextSearchUrl(
                 query: '123 Main Street', pagetoken: 'egdsfdsfdsf'),
             equals(
-                'https://maps.googleapis.com/maps/api/place/textsearch/json?query=${Uri.encodeComponent('123 Main Street')}&pagetoken=egdsfdsfdsf&key=$apiKey'));
+                'https://maps.googleapis.com/maps/api/place/textsearch/json?pagetoken=egdsfdsfdsf&key=$apiKey'));
       });
 
       test('with type', () {

@@ -211,18 +211,19 @@ class GoogleMapsPlaces extends GoogleWebService {
           "If 'rankby=distance' is specified, then one or more of 'keyword', 'name', or 'type' is required.");
     }
 
-    final params = {
-      'location': location,
-      'radius': radius,
-      'language': language,
-      'type': type,
-      'keyword': keyword,
-      'minprice': minprice?.index,
-      'maxprice': maxprice?.index,
-      'name': name,
-      'rankby': rankby,
-      'pagetoken': pagetoken,
-    };
+    final params = pagetoken != null && pagetoken.isNotEmpty
+        ? {'pagetoken': pagetoken}
+        : {
+            'location': location,
+            'radius': radius,
+            'language': language,
+            'type': type,
+            'keyword': keyword,
+            'minprice': minprice?.index,
+            'maxprice': maxprice?.index,
+            'name': name,
+            'rankby': rankby,
+          };
 
     if (apiKey != null) {
       params.putIfAbsent('key', () => apiKey);
@@ -243,18 +244,19 @@ class GoogleMapsPlaces extends GoogleWebService {
     String language,
     String region,
   }) {
-    final params = {
-      'query': query != null ? Uri.encodeComponent(query) : null,
-      'language': language,
-      'region': region,
-      'location': location,
-      'radius': radius,
-      'minprice': minprice?.index,
-      'maxprice': maxprice?.index,
-      'opennow': opennow,
-      'type': type,
-      'pagetoken': pagetoken,
-    };
+    final params = pagetoken != null && pagetoken.isNotEmpty
+        ? {'pagetoken': pagetoken}
+        : {
+            'query': query != null ? Uri.encodeComponent(query) : null,
+            'language': language,
+            'region': region,
+            'location': location,
+            'radius': radius,
+            'minprice': minprice?.index,
+            'maxprice': maxprice?.index,
+            'opennow': opennow,
+            'type': type,
+          };
 
     if (apiKey != null) {
       params.putIfAbsent('key', () => apiKey);
