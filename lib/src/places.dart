@@ -672,7 +672,7 @@ class PlaceDetails {
   final String? vicinity;
 
   /// JSON utc_offset
-  final num utcOffset;
+  final num? utcOffset;
 
   final String? website;
 
@@ -685,7 +685,7 @@ class PlaceDetails {
     this.adrAddress,
     required this.name,
     required this.placeId,
-    required this.utcOffset,
+    this.utcOffset,
     this.id,
     this.internationalPhoneNumber,
     this.addressComponents = const [],
@@ -992,12 +992,12 @@ class StructuredFormatting {
 
   @JsonKey(defaultValue: <MatchedSubstring>[])
   final List<MatchedSubstring> mainTextMatchedSubstrings;
-  final String secondaryText;
+  final String? secondaryText;
 
   StructuredFormatting({
     required this.mainText,
     this.mainTextMatchedSubstrings = const <MatchedSubstring>[],
-    required this.secondaryText,
+    this.secondaryText,
   });
 
   factory StructuredFormatting.fromJson(Map<String, dynamic> json) =>

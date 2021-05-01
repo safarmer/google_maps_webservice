@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.0.20-nullsafety.5
+
+- Fix `dayTimeToDateTime` (https://github.com/lejard-h/google_maps_webservice/issues/113)
+- Make `PlaceDetails.utcOffset` nullable
+
+## 0.0.20-nullsafety.4
+
+- Make PlaceSearchResult.id nullable
+- Make Review.language nullable
+- Make StructuredFormatting.secondaryText nullable
+
 ## 0.0.20-nullsafety.3
 
 - Make PlaceDetails.adrAddress nullable
